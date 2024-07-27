@@ -7,4 +7,5 @@ def print_board(board):
         print("-" * 5)
 
 def update_board(board, move, player):
-    pass
+    row, col = move
+    board[row][col] = player
