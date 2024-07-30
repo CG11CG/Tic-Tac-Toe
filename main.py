@@ -1,25 +1,30 @@
-def check_win(board):
-    #Checks rows
-    for row in board:
-        if row[0] == row[1] == row[2] != " ":
-            return True
-    #Checks Columns
-    for col in range(3):
-        if board[0][col] == board[1][col] == board[2][col] != " ":
-            return True
-    #Check Diagonals
-    if board[0][0] == board[1][1] == board [2][2] != " ":
-        return True
-    
-    if board[0][2] == board[1][1] == board [2][0] != " ":
-        return True
-    
-    return False
-
-def check_draw(board):
-    pass
-
-def play_turn(board, player):
-    pass
+from board import initialize_board, print_board, update_board, check_win, check_draw
+from players import validate_move, switch_player, get_move
 
 def main():
+    board = initialize_board()
+    current_player = "X"
+    
+    while True:
+        print_board(board)
+        move = get_move()
+        
+        if validate_move(board, move):
+            update_board(board, move, current_player)
+            
+            if check_win(board):
+                print_board(board)
+                print(f"Player {current_player} wins!")
+                break
+            
+            if check_draw(board):
+                print_board(board)
+                print("The game is a draw!")
+                break
+            
+            current_player = switch_player(current_player)
+        else:
+            print("Invalid move. Try again.")
+
+if __name__ == "__main__":
+    main()
